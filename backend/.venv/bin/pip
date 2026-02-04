@@ -1,4 +1,4 @@
-#!/home/budamcmullin/Prop-A-Bility/backend/.venv/bin/python3
+#!/home/budamcmullin/prop-a-bility/backend/.venv/bin/python3.11
 # -*- coding: utf-8 -*-
 import re
 import sys
