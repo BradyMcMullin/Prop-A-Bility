@@ -1,10 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react';
 import { supabase } from './lib/supabase';
 import { Session } from '@supabase/supabase-js';
 import Auth from './components/Auth';
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import './App.css';
 
 
 function Dashboard({ session }: { session: Session}) {
@@ -20,7 +18,7 @@ function Dashboard({ session }: { session: Session}) {
 }
 
 function App() {
-  const [session, setSession] = useState<session | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
   
   useEffect(() => {
     //check active session

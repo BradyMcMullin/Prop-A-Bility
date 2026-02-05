@@ -1,4 +1,4 @@
-imporrt { useState } from 'react';
+import { useState } from 'react';
 import { supabase } from '../lib/supabase';
 
 export default function Auth() {
@@ -16,7 +16,7 @@ export default function Auth() {
     let error;
 
     if (isSignUp) {
-      const {error: signUpError} = await supabase.auth.signup({
+      const {error: signUpError} = await supabase.auth.signUp({
         email,
         password,
       });
@@ -44,7 +44,7 @@ export default function Auth() {
           type="email"
           placeholder="Your email"
           value={email}
-          onChange{(e) => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
         <input
