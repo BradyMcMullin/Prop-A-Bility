@@ -5,25 +5,25 @@ export default function Auth() {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isSignUp, setIsSignUp] =useState(false);
+  const [isSignUp, setIsSignUp] = useState(false); // Toggle between Login and Sign Up
   const [message, setMessage] = useState('');
 
-  const handleAuth = async (e: React.FormEvent) =>{
+  const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setMessage('');
 
     let error;
-
+    
     if (isSignUp) {
-      const {error: signUpError} = await supabase.auth.signUp({
+      const { error: signUpError } = await supabase.auth.signUp({
         email,
         password,
       });
       if (!signUpError) setMessage('Check your email for the login link!');
       error = signUpError;
     } else {
-      const  { error: signInError } = await supabase.auth.signInWithPassword({
+      const { error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
@@ -35,11 +35,11 @@ export default function Auth() {
   };
 
   return (
-    <div className="card" style={{maxWidth: '400px', margin: '0 auto'}}>
+    <div className="card" style={{ maxWidth: '400px', margin: '0 auto' }}>
       <h2>{isSignUp ? 'Create Account' : 'Welcome Back'}</h2>
       <p>Sign in to save your propagations</p>
-
-      <form onSubmit={handleAuth} style={{ display: 'flex', flexDirection: 'column', gap: '15px'}}>
+      
+      <form onSubmit={handleAuth} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
         <input
           type="email"
           placeholder="Your email"
@@ -59,11 +59,11 @@ export default function Auth() {
         </button>
       </form>
 
-      {message && <p style={{ marginTop: '10px', color: message.includes('Check') ? 'green' : 'red' }}> {message}</p>}
+      {message && <p style={{ marginTop: '10px', color: message.includes('Check') ? 'green' : 'red' }}>{message}</p>}
 
-      <button
+      <button 
         onClick={() => setIsSignUp(!isSignUp)}
-        style={{ background: 'transparent', border: 'none', color: '#646cff', marginTop: '10px', cursor: 'pointer'}}
+        style={{ background: 'transparent', border: 'none', color: '#646cff', marginTop: '10px', cursor: 'pointer' }}
       >
         {isSignUp ? 'Already have an account? Log In' : 'Need an account? Sign Up'}
       </button>

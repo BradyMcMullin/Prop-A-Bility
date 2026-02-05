@@ -4,14 +4,13 @@ import { Session } from '@supabase/supabase-js';
 import Auth from './components/Auth';
 import './App.css';
 
-
-function Dashboard({ session }: { session: Session}) {
+// Placeholder for your main feature
+function Dashboard({ session }: { session: Session }) {
   return (
     <div>
       <h1>Welcome, {session.user.email}</h1>
       <p>You are logged in!</p>
-      
-
+      {/* We will add the PlantAnalyzer here next */}
       <button onClick={() => supabase.auth.signOut()}>Sign Out</button>
     </div>
   );
@@ -19,14 +18,14 @@ function Dashboard({ session }: { session: Session}) {
 
 function App() {
   const [session, setSession] = useState<Session | null>(null);
-  
+
   useEffect(() => {
-    //check active session
-    supabase.auth.getSession().then(({ data : { session } }) => {
+    // 1. Check active session on load
+    supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
     });
 
-    //wait for changes
+    // 2. Listen for changes (login, logout)
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
