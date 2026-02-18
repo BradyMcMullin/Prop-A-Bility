@@ -36,10 +36,11 @@ const Signup = () => {
       if (result.success) {
         navigate('/dashboard');
       } else {
-        if (result.error.includes("already registered") || result.error.includes("unique constraint")) {
-          setError("This email is alerady associated with an account. Try signing in.");
+        if (result.error && (result.error.includes("already registered") || result.error.includes("unique constraint"))) {
+          setError("This email is already associated with an account. Try signing in.");
         } else {
-          setError(reslt.error)
+          // Fixed typo: reslt -> result
+          setError(result.error || "Failed to sign up");
         }
       }
     } catch (err) {
@@ -50,10 +51,23 @@ const Signup = () => {
   };
 
   return (
-    <div className='flex items-center justify-center min-h-screen bg-gray-50 dark:bg-stone-900 transition-colors duration-300'>
+    // Added 'relative' to container for absolute positioning of logo
+    <div className='relative flex items-center justify-center min-h-screen bg-gray-50 dark:bg-stone-900 transition-colors duration-300'>
+
+      {/* 🟢 Clickable Logo - Top Left */}
+      <Link
+        to="/"
+        className="absolute top-6 left-6 flex items-center gap-2 group z-10"
+      >
+        <span className="text-3xl group-hover:scale-110 transition-transform">🌱</span>
+        <span className="text-2xl font-bold text-emerald-800 dark:text-emerald-400 tracking-tight">
+          Propability
+        </span>
+      </Link>
+
       <div className='w-full max-w-md p-8 bg-white dark:bg-stone-800 rounded-xl shadow-lg border border-gray-100 dark:border-stone-700'>
 
-        <h2 className='text-3xl font-bold text-center mb-2 text-emerald-900 dark:text-emerald-100'>Join PlantAI</h2>
+        <h2 className='text-3xl font-bold text-center mb-2 text-emerald-900 dark:text-emerald-100'>Join Propability</h2>
         <p className='text-center text-gray-500 dark:text-stone-400 mb-8'>Start your garden journey today</p>
 
         {error && (

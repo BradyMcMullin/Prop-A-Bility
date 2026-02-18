@@ -8,30 +8,43 @@ const Signin = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // Using your specific auth context methods
   const { signInUser, signInWithGoogle } = UserAuth();
   const navigate = useNavigate();
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    setLoading(true);
 
     try {
-      const result = await signInUser(email, password);
-      if (result.success) {
-        navigate('/dashboard');
-      } else {
-        setError("Failed to sign in. Please check your credentials.");
-      }
-    } catch (err) {
-      setError("An unexpected error occurred.");
+      setLoading(true);
+      // Your specific auth logic
+      await signInUser(email, password);
+      // If no error is thrown, navigate
+      navigate('/dashboard');
+    } catch (err: any) {
+      setError("Failed to sign in. Please check your credentials.");
+      console.error(err);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className='flex items-center justify-center min-h-screen bg-gray-50 dark:bg-stone-900 transition-colors duration-300'>
+    // Added 'relative' here so we can position the logo absolute to the screen
+    <div className='relative flex items-center justify-center min-h-screen bg-gray-50 dark:bg-stone-900 transition-colors duration-300'>
+
+      {/* 🟢 Clickable Logo - Top Left */}
+      <Link
+        to="/"
+        className="absolute top-6 left-6 flex items-center gap-2 group z-10"
+      >
+        <span className="text-3xl group-hover:scale-110 transition-transform">🌱</span>
+        <span className="text-2xl font-bold text-emerald-800 dark:text-emerald-400 tracking-tight">
+          Propability
+        </span>
+      </Link>
+
       <div className='w-full max-w-md p-8 bg-white dark:bg-stone-800 rounded-xl shadow-lg border border-gray-100 dark:border-stone-700'>
 
         <h2 className='text-3xl font-bold text-center mb-2 text-emerald-900 dark:text-emerald-100'>Welcome Back</h2>
