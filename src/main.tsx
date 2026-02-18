@@ -1,13 +1,17 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import "./index.css"
 
-//system check, delete later
-console.log("SYSTEM CHECK: Supabase URL is", import.meta.env.VITE_SUPABASE_URL ? "CONNECTED" : "MISSING");
+import { RouterProvider } from 'react-router-dom';
+import { router } from "./router.tsx"
+import { AuthContextProvider } from './context/AuthContext.tsx';
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <App />
-  </StrictMode>,
-)
+    <>
+      <AuthContextProvider>
+        <RouterProvider router={router} />
+      </AuthContextProvider>
+    </>
+  </StrictMode>
+);
