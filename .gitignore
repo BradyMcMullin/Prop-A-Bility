@@ -7,11 +7,14 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
+node_modules/
+.pnp
+.pnp.js
 dist
 dist-ssr
 *.local
-
+build/
+dist/
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -26,3 +29,4 @@ dist-ssr
 .venv
 dataset/
 ml_lab/
+supabase/
