@@ -1,0 +1,13 @@
+{
+  "weights_path": "propagate_mobilenetv3_finetuned_high_res.pth",
+  "temperature": 3.0579726696014404,
+  "success_threshold": 0.63,
+  "false_success_cost": 3.0,
+  "false_failure_cost": 1.0,
+  "failed_class_index": 0,
+  "success_class_index": 1,
+  "classes": [
+    "failed",
+    "success"
+  ]
+}

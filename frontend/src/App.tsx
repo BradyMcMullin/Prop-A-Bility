@@ -45,9 +45,6 @@ function App() {
 
           {/* Left: Text Content */}
           <div className="flex-1 text-center md:text-left">
-            <div className="inline-block px-4 py-1.5 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 rounded-full text-sm font-semibold mb-6">
-              ✨ AI-Powered Plant Science
-            </div>
             <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 dark:text-white leading-tight mb-6">
               Stop guessing. <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500">
@@ -111,7 +108,7 @@ function App() {
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Science, not magic.</h2>
             <p className="text-gray-500 dark:text-stone-400 max-w-2xl mx-auto">
-              Our model is trained on thousands of propagation attempts to recognize the visual indicators of a viable cutting.
+              Our model is trained on thousands of propagation images to recognize indicators of a viable cutting.
             </p>
           </div>
 
@@ -145,7 +142,6 @@ function App() {
   );
 }
 
-// Simple helper component for the grid
 function FeatureCard({ icon, title, desc }: { icon: string, title: string, desc: string }) {
   return (
     <div className="bg-white dark:bg-stone-800 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-stone-700 hover:shadow-md transition">
