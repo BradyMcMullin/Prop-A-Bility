@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabaseClient';
 
@@ -21,7 +21,6 @@ interface Plant {
 
 const Dashboard = () => {
   const { session } = UserAuth();
-  const navigate = useNavigate();
 
   const [plants, setPlants] = useState<Plant[]>([]);
   const [loading, setLoading] = useState(true);

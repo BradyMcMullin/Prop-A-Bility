@@ -1,13 +1,26 @@
-import { createContext, useEffect, useState, useContext } from 'react'
+import { createContext, useEffect, useState, useContext, type ReactNode } from 'react';
+import type { Session } from '@supabase/supabase-js';
 import { supabase } from "../lib/supabaseClient";
 
-const AuthContext = createContext();
+// 1. Define exactly what our context functions take in and return
+interface AuthContextType {
+  session: Session | null;
+  signUpNewUser: (email: string, password: string, name: string) => Promise<{ success: boolean; data?: any; error?: string }>;
+  signInUser: (email: string, password: string) => Promise<{ success: boolean; data?: any; error?: string }>;
+  signInWithGoogle: () => Promise<void>;
+  signOut: () => Promise<void>;
+}
 
-export const AuthContextProvider = ({ children }) => {
-  const [session, setSession] = useState(undefined)
+// 2. Initialize the context with our custom type
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+// 3. Type the 'children' prop
+export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
+  // 4. Initialize session as 'null' instead of 'undefined' to match Supabase's return type
+  const [session, setSession] = useState<Session | null>(null);
 
   // Sign up (Updated to include Name)
-  const signUpNewUser = async (email, password, name) => {
+  const signUpNewUser = async (email: string, password: string, name: string) => {
     const { data, error } = await supabase.auth.signUp({
       email: email,
       password: password,
@@ -19,7 +32,7 @@ export const AuthContextProvider = ({ children }) => {
     });
 
     if (error) {
-      console.error("there was a problem signing up:", error.message)
+      console.error("there was a problem signing up:", error.message);
       return { success: false, error: error.message };
     }
 
@@ -31,18 +44,18 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   // Sign in with Email
-  const signInUser = async (email, password) => {
+  const signInUser = async (email: string, password: string) => {
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email: email,
         password: password,
       });
       if (error) {
-        return { success: false, error: error.message }
+        return { success: false, error: error.message };
       }
       return { success: true, data };
     } catch (error) {
-      return { success: false, error: "An unexpected error occurred" }
+      return { success: false, error: "An unexpected error occurred" };
     }
   };
 
@@ -54,15 +67,15 @@ export const AuthContextProvider = ({ children }) => {
         // Redirect back to your dashboard after Google login
         redirectTo: `${window.location.origin}/dashboard`
       }
-    })
-    if (error) console.error("Google login error:", error)
-  }
+    });
+    if (error) console.error("Google login error:", error);
+  };
 
   // Sign out
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
     if (error) {
-      console.error("there was an error: ", error)
+      console.error("there was an error: ", error);
     }
   };
 
@@ -74,7 +87,7 @@ export const AuthContextProvider = ({ children }) => {
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
-    })
+    });
 
     return () => subscription.unsubscribe();
   }, []);
@@ -83,9 +96,14 @@ export const AuthContextProvider = ({ children }) => {
     <AuthContext.Provider value={{ session, signUpNewUser, signInUser, signInWithGoogle, signOut }}>
       {children}
     </AuthContext.Provider>
-  )
-}
+  );
+};
 
 export const UserAuth = () => {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  // 5. Provide a safety check so TypeScript knows 'context' isn't undefined
+  if (context === undefined) {
+    throw new Error('UserAuth must be used within an AuthContextProvider');
+  }
+  return context;
 };

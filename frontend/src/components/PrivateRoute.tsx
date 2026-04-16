@@ -1,8 +1,8 @@
-import React from 'react';
 import { UserAuth } from '../context/AuthContext';
 import { Navigate } from 'react-router-dom'
+import type { ReactNode } from 'react';
 
-const PrivateRoute = ({ children }) => {
+const PrivateRoute = ({ children }: { children: ReactNode }) => {
   const { session } = UserAuth();
 
   if (session === undefined) {
