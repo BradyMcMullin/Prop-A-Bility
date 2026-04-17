@@ -4,7 +4,7 @@ import { supabase } from "../lib/supabaseClient";
 
 // 1. Define exactly what our context functions take in and return
 interface AuthContextType {
-  session: Session | null;
+  session: Session | null | undefined;
   signUpNewUser: (email: string, password: string, name: string) => Promise<{ success: boolean; data?: any; error?: string }>;
   signInUser: (email: string, password: string) => Promise<{ success: boolean; data?: any; error?: string }>;
   signInWithGoogle: () => Promise<void>;
@@ -17,7 +17,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 // 3. Type the 'children' prop
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   // 4. Initialize session as 'null' instead of 'undefined' to match Supabase's return type
-  const [session, setSession] = useState<Session | null>(null);
+  const [session, setSession] = useState<Session | null | undefined>(undefined);
 
   // Sign up (Updated to include Name)
   const signUpNewUser = async (email: string, password: string, name: string) => {
