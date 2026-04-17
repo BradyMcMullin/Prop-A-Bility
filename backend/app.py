@@ -57,7 +57,7 @@ except Exception as e:
     print(f"❌ Failed to load calibration: {e}")
     # Fallbacks just in case
     TEMPERATURE = 1.0
-    SUCCESS_THRESHOLD = 0.3
+    SUCCESS_THRESHOLD = 0.5
     SUCCESS_IDX = 1
     CLASSES = ["failed", "success"]
 
@@ -130,7 +130,7 @@ def analyze_plant():
         # ---------------------------------------------------------
         # STEP 1: YOLO OBJECT DETECTION & CROPPING
         # ---------------------------------------------------------
-        results = yolo_model(img, verbose=False)
+        results = yolo_model(img, verbose=False, conf=0.10)
         boxes = results[0].boxes
 
         # THE GRACEFUL FAIL: If no plant is detected
