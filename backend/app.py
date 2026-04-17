@@ -57,7 +57,7 @@ except Exception as e:
     print(f"❌ Failed to load calibration: {e}")
     # Fallbacks just in case
     TEMPERATURE = 1.0
-    SUCCESS_THRESHOLD = 0.5
+    SUCCESS_THRESHOLD = 0.3
     SUCCESS_IDX = 1
     CLASSES = ["failed", "success"]
 
