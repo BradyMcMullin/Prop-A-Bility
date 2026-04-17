@@ -29,4 +29,5 @@ dist/
 .venv
 dataset/
 ml_lab/
-supabase/
+supabase/.temp/
+supabase/.branches/
